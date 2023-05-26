@@ -28,10 +28,11 @@ model Training {
   purpose       String
   organizer     String
   location      String
-  cost          BigInt?
+  cost          Int?
   authorId      Int
-  held_at       DateTime
+  heldAt        DateTime
   author        User            @relation(fields: [authorId], references: [id])
+  status        String          @default("requested")
   participants  Participant[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
@@ -39,7 +40,7 @@ model Training {
 
 model Participant {
   id          Int       @id @default(autoincrement())
-  full_name   String
+  fullName   String
   trainingId  Int
   training    Training  @relation(fields: [trainingId], references: [id])
   createdAt   DateTime  @default(now())

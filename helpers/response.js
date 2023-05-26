@@ -1,7 +1,7 @@
-function response({ res, code, message, ...obj }) {
+function response({ res, code, message: msg, ...obj }) {
   return res.status(code).json({
     code,
-    message,
+    message: msg instanceof Error ? msg.message : msg,
     ...obj,
   });
 }
@@ -10,11 +10,11 @@ function uniqueValidation(errors) {
   const checked = [];
 
   return errors.filter((error) => {
-    if (checked.includes(error.param)) {
+    if (checked.includes(error.path)) {
       return false;
     }
 
-    checked.push(error.param);
+    checked.push(error.path);
     return true;
   });
 }

@@ -6,15 +6,14 @@ const loginValidator = require("./user.validator");
 const { comparePassword } = require("../../helpers/bcrypt");
 const { generateToken } = require("../../helpers/jwt");
 
-router.use(validation(loginValidator()));
-router.post("/login", async (req, res) => {
+router.post("/login", validation(loginValidator()), async (req, res) => {
   const { username, password } = req.body;
 
   try {
     const user = await userService.getUserByName(username);
 
     if (!comparePassword(password, user?.password || "")) {
-      return response({ res, code: 400, message: "Invalid email or password" });
+      throw Error("Invalid email or password");
     }
 
     const data = exclude(user, ["password", "token"]);
@@ -33,8 +32,7 @@ router.post("/login", async (req, res) => {
       },
     });
   } catch (err) {
-    console.log(err);
-    return response({ res, code: 500, message: err });
+    return response({ res, code: 400, message: err });
   }
 });
 

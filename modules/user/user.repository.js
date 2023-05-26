@@ -1,4 +1,4 @@
-const db = require("../../db");
+const db = require("../../database");
 
 class UserRepository {
   static async findOne(whereCondition) {

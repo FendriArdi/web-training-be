@@ -1,15 +1,15 @@
-const { findOne } = require("./user.repository");
+const rep = require("./user.repository");
 
 async function getUserByName(username) {
   if (!username) {
     return null;
   }
 
-  return await findOne({ username });
+  return await rep.findOne({ username });
 }
 
-async function updateUser(id, data) {
-  return await update({ id }, data);
+async function updateUserById(id, data) {
+  return await rep.updateOne({ id }, data);
 }
 
-module.exports = { getUserByName };
+module.exports = { getUserByName, updateUserById };

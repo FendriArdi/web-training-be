@@ -1,6 +1,6 @@
-// const { User } = require("../models");
 const { verifyToken } = require("../helpers/jwt");
 const { response } = require("../helpers/response");
+const { getUserByName } = require("../modules/user/user.service");
 
 function authentication() {
   return async function (req, res, next) {
@@ -11,7 +11,7 @@ function authentication() {
       if (authHeaderName !== "Bearer" || !token) throw Error();
 
       const data = verifyToken(token);
-      const user = await User.findOne({ where: { id: data.id } });
+      const user = await getUserByName(data.username);
 
       if (user?.token !== token) throw Error();
 

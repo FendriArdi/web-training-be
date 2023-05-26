@@ -1,11 +1,22 @@
 const db = require("../../db");
 
-async function findOne(whereCondition) {
-  const user = await db.user.findUnique({
-    where: whereCondition,
-  });
+class UserRepository {
+  static async findOne(whereCondition) {
+    const user = await db.user.findUnique({
+      where: whereCondition,
+    });
 
-  return user;
+    return user;
+  }
+
+  static async updateOne(whereCondition, data) {
+    const user = await db.user.update({
+      where: whereCondition,
+      data,
+    });
+
+    return user;
+  }
 }
 
-module.exports = { findOne };
+module.exports = UserRepository;

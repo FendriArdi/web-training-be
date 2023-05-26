@@ -27,4 +27,4 @@ function exclude(obj, keys) {
   return obj;
 }
 
-module.exports = { response, uniqueValidation };
+module.exports = { response, uniqueValidation, exclude };

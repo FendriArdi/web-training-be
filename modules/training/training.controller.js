@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const BadRequestError = require("../../helpers/error");
 const { response } = require("../../helpers/response");
 const authentication = require("../../middlewares/authentication");
 const authorization = require("../../middlewares/authorization");
@@ -36,7 +37,7 @@ router.get("/", async (req, res) => {
       ...data,
     });
   } catch (err) {
-    return response({ res, code: 400, message: err });
+    return response({ res, code: 500, message: err });
   }
 });
 
@@ -69,7 +70,7 @@ router.post(
         data: newTraining,
       });
     } catch (err) {
-      return response({ res, code: 400, message: err });
+      return response({ res, code: 500, message: err });
     }
   }
 );
@@ -89,7 +90,11 @@ router.put("/:id", validation(update()), async (req, res) => {
       data: training,
     });
   } catch (err) {
-    return response({ res, code: 400, message: err });
+    if (err instanceof BadRequestError) {
+      return response({ res, code: err.statusCode, message: err.message });
+    }
+
+    return response({ res, code: 500, message: err });
   }
 });
 

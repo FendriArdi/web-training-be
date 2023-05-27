@@ -5,7 +5,7 @@ function authorization(role) {
     try {
       const user = res.locals.user;
 
-      if (user.role !== role) throw Error();
+      if (user.role !== role) throw new Error();
 
       next();
     } catch (err) {

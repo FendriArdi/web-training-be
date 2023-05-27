@@ -5,6 +5,7 @@ const validation = require("../../middlewares/validation");
 const loginValidator = require("./user.validator");
 const { comparePassword } = require("../../helpers/bcrypt");
 const { generateToken } = require("../../helpers/jwt");
+const BadRequestError = require("../../helpers/error");
 
 router.post("/login", validation(loginValidator()), async (req, res) => {
   const { username, password } = req.body;
@@ -13,7 +14,7 @@ router.post("/login", validation(loginValidator()), async (req, res) => {
     const user = await userService.getUserByName(username);
 
     if (!comparePassword(password, user?.password || "")) {
-      throw Error("Invalid email or password");
+      throw new BadRequestError("Invalid email or password");
     }
 
     const data = exclude(user, ["password", "token"]);
@@ -32,7 +33,11 @@ router.post("/login", validation(loginValidator()), async (req, res) => {
       },
     });
   } catch (err) {
-    return response({ res, code: 400, message: err });
+    if (err instanceof BadRequestError) {
+      return response({ res, code: err.statusCode, message: err.message });
+    }
+
+    return response({ res, code: 500, message: err });
   }
 });
 

@@ -1,8 +1,9 @@
+const BadRequestError = require("../../helpers/error");
 const rep = require("./training.repository");
 
-async function getAllTraining(pagination, query) {
-  const { page, limit } = pagination;
+async function getAllTraining(query, pagination = {}) {
   const { name, status, departement } = query;
+  const { page, limit } = pagination;
 
   const fullQuery = {
     where: {
@@ -74,7 +75,7 @@ async function getAllScheduleTraining() {
 
 async function getTrainingById(id) {
   if (typeof id !== "number") {
-    throw Error("ID must be a number");
+    throw new Error("ID must be a number");
   }
 
   return await rep.findOne({ id });
@@ -88,11 +89,11 @@ async function updateTrainingStatusById(id, status) {
   const training = await getTrainingById(id);
 
   if (!training) {
-    throw Error("Data not found");
+    throw new BadRequestError("Data not found");
   }
 
   if (training.status !== "requested") {
-    throw Error("Training status is not requested");
+    throw new BadRequestError("Training status is not requested");
   }
 
   return await rep.updateOne({ id }, { status });

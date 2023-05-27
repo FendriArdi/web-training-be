@@ -8,12 +8,12 @@ function authentication() {
       const authHeader = req.headers.authorization;
       const [authHeaderName, token] = authHeader?.split(" ");
 
-      if (authHeaderName !== "Bearer" || !token) throw Error();
+      if (authHeaderName !== "Bearer" || !token) throw new Error();
 
       const data = verifyToken(token);
       const user = await getUserByName(data.username);
 
-      if (user?.token !== token) throw Error();
+      if (user?.token !== token) throw new Error();
 
       res.locals.user = data;
 

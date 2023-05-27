@@ -122,7 +122,7 @@ If user's role is `user`, Only returns data according to user's departement
 
 If user's role is `admin`, Returns all training data
 
-### Authorization
+#### Authorization
 
 ```js
 Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....
@@ -348,7 +348,7 @@ Can only be used by `admin`.
 GET /api/training/schedule/
 ```
 
-### Authorization
+#### Authorization
 
 ```js
 Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....
@@ -389,7 +389,7 @@ Can only be used by `user`.
 POST /api/training/
 ```
 
-### Authorization
+#### Authorization
 
 ```js
 Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....
@@ -458,7 +458,7 @@ PUT /api/training/:id/
 
 Paramater `:id` is `training's id`
 
-### Authorization
+#### Authorization
 
 ```js
 Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....

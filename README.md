@@ -128,7 +128,7 @@ If user's role is `admin`, Returns all training data
 Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....
 ```
 
-#### Filter Query
+#### Filter Query (Optinal)
 
 `?status` Filter the data with spesific status.
 
@@ -149,7 +149,7 @@ Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....
 
 `?name` Filter the data contained by training name.
 
-`?departement` Filter the data with spesific departement.
+`?departement` Filter the data with specific departments that made the training.
 
 <table>
     <thead>

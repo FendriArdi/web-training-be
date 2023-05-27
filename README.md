@@ -147,7 +147,7 @@ Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....
     </tbody>
 </table>
 
-`?name` Filter the data it contains.
+`?name` Filter the data contained by training name.
 
 `?departement` Filter the data with spesific departement.
 

@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
   }
 
   try {
-    const data = await getAllTraining(pagination, query);
+    const data = await getAllTraining(query, pagination);
     return response({
       res,
       code: 200,

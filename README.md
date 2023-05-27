@@ -40,7 +40,7 @@ Last, start the server.
 
 Base Url
 
-```http
+```
 http://localhost:3000/api/
 ```
 
@@ -54,8 +54,8 @@ POST /api/login/
 
 ```json
 {
-  "username": required | string,
-  "password": required | string
+  "username": "required | string",
+  "password": "required | string"
 }
 ```
 
@@ -399,13 +399,13 @@ Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....
 
 ```json
 {
-  "name": required | string,
-  "purpose": required | string,
-  "organizer": required | ["internal", "external"],
-  "location": required | string,
-  "heldAt": required | date,
-  "cost": optinal | number,
-  "participants": required | string[]
+  "name": "required | string",
+  "purpose": "required | string",
+  "organizer": "required | ['internal', 'external']",
+  "location": "required | string",
+  "heldAt": "required | date",
+  "cost": "optinal | number",
+  "participants": "required | string[]"
 }
 ```
 
@@ -468,7 +468,7 @@ Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....
 
 ```json
 {
-  "status": required | ["approved", "rejected"],
+  "status": "required | ['approved', 'rejected']"
 }
 ```
 

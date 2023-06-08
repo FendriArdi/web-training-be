@@ -23,26 +23,47 @@ model User {
 }
 
 model Training {
-  id            Int             @id @default(autoincrement())
+  id            String          @id
   name          String
   purpose       String
   organizer     String
   location      String
   cost          Int?
-  authorId      Int
   heldAt        DateTime
-  author        User            @relation(fields: [authorId], references: [id])
   status        String          @default("requested")
+  authorId      Int
+  author        User            @relation(fields: [authorId], references: [id])
   participants  Participant[]
+  questions     Question[]
+  answers       Answer[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
 }
 
 model Participant {
   id          Int       @id @default(autoincrement())
-  fullName   String
-  trainingId  Int
+  fullName    String
+  trainingId  String
   training    Training  @relation(fields: [trainingId], references: [id])
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+}
+
+model Question {
+  id          Int       @id @default(autoincrement())
+  text        String
+  trainingId  String
+  training    Training  @relation(fields: [trainingId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Answer {
+  id            Int       @id @default(autoincrement())
+  participant   String
+  results       String    @db.Text
+  trainingId    String
+  training      Training  @relation(fields: [trainingId], references: [id])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }

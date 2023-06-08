@@ -27,6 +27,11 @@ function store() {
       .withMessage("Participants is required")
       .isArray({ min: 1 })
       .withMessage("Participants must be an array"),
+    body("questions")
+      .notEmpty()
+      .withMessage("Questions is required")
+      .isArray({ min: 1 })
+      .withMessage("Questions must be an array"),
   ];
 }
 
@@ -35,8 +40,8 @@ function update() {
     body("status")
       .notEmpty()
       .withMessage("Status is required")
-      .isIn(["approved", "rejected"])
-      .withMessage("Status must be approved or rejected"),
+      .isIn(["ongoing", "rejected"])
+      .withMessage("Status must be ongoing or rejected"),
   ];
 }
 

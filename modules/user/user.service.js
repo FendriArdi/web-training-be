@@ -9,6 +9,10 @@ async function getUserByName(username) {
 }
 
 async function updateUserById(id, data) {
+  if (typeof id !== "number") {
+    throw Error("ID must be a number");
+  }
+
   return await rep.updateOne({ id }, data);
 }
 

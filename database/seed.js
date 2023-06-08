@@ -63,10 +63,15 @@ const hashedAccounts = accounts.map((account) => {
 });
 
 async function main() {
-  await db.user.createMany({
-    data: hashedAccounts,
-    skipDuplicates: true,
-  });
+  try {
+    const results = await db.user.createMany({
+      data: hashedAccounts,
+    });
+
+    console.log(results);
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 main()

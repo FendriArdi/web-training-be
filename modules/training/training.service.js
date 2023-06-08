@@ -59,7 +59,7 @@ async function getAllTraining(query, pagination = {}) {
 async function getAllScheduleTraining() {
   const trainings = await rep.findAll({
     where: {
-      status: "approved",
+      OR: [{ status: "approved" }, { status: "ongoing" }],
     },
     select: {
       id: true,
@@ -74,11 +74,63 @@ async function getAllScheduleTraining() {
 }
 
 async function getTrainingById(id) {
-  if (typeof id !== "number") {
-    throw new Error("ID must be a number");
+  if (typeof id !== "string") {
+    throw new Error("ID must be a string");
   }
 
-  return await rep.findOne({ id });
+  const training = await rep.findOne({ id });
+
+  if (!training) {
+    throw new BadRequestError("Data not found");
+  }
+
+  return training;
+}
+
+async function updateTrainingOverToApproved(id) {
+  const training = await rep.updateAll(
+    {
+      status: "ongoing",
+      heldAt: { lte: new Date() },
+    },
+    { status: "approved" }
+  );
+
+  return training;
+}
+
+async function getTrainingIncluded(id, include) {
+  if (typeof id !== "string") {
+    throw new Error("ID must be a string");
+  }
+
+  const training = await rep.findOne({ id }, include);
+
+  if (!training) {
+    throw new BadRequestError("Data not found");
+  }
+
+  return training;
+}
+
+async function getTrainingOngoing(id) {
+  const training = await getTrainingById(id);
+
+  if (training.status !== "ongoing") {
+    throw new BadRequestError("Training is not ongoing");
+  }
+
+  return training;
+}
+
+async function getTrainingOngoingIncluded(id, include) {
+  const training = await getTrainingIncluded(id, include);
+
+  if (training.status !== "ongoing") {
+    throw new BadRequestError("Training is not ongoing");
+  }
+
+  return training;
 }
 
 async function createTraining(data) {
@@ -87,10 +139,6 @@ async function createTraining(data) {
 
 async function updateTrainingStatusById(id, status) {
   const training = await getTrainingById(id);
-
-  if (!training) {
-    throw new BadRequestError("Data not found");
-  }
 
   if (training.status !== "requested") {
     throw new BadRequestError("Training status is not requested");
@@ -105,4 +153,8 @@ module.exports = {
   updateTrainingStatusById,
   getAllTraining,
   getAllScheduleTraining,
+  getTrainingIncluded,
+  getTrainingOngoingIncluded,
+  getTrainingOngoing,
+  updateTrainingOverToApproved,
 };

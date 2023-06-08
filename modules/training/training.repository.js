@@ -11,9 +11,10 @@ class TrainingRepository {
     return newTraining;
   }
 
-  static async findOne(whereCondition) {
+  static async findOne(whereCondition, include = undefined) {
     const training = await db.training.findUnique({
       where: whereCondition,
+      include,
     });
 
     return training;
@@ -26,6 +27,15 @@ class TrainingRepository {
     });
 
     return updatedTraining;
+  }
+
+  static async updateAll(whereCondition, data) {
+    const updatedTrainings = await db.training.updateMany({
+      where: whereCondition,
+      data,
+    });
+
+    return updatedTrainings;
   }
 
   static async count(whereCondition) {

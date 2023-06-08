@@ -13,6 +13,7 @@ const api = express.Router();
 
 api.use("/", require("./modules/user/user.controller"));
 api.use("/training", require("./modules/training/training.controller"));
+api.use("/questions", require("./modules/question/question.controller"));
 
 app.use("/api", api);
 app.use(notFound);

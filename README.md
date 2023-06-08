@@ -19,7 +19,7 @@ Then, open the folder and **install** all packages.
 Then, copy `.env.example` to `.env`
 
 ```
-cp .env.example .env
+> cp .env.example .env
 ```
 
 Then, fill the environment variables.
@@ -27,7 +27,7 @@ Then, fill the environment variables.
 Then, migrate the database with seed data
 
 ```
-npm run migrate:seed
+> npm run migrate:seed
 ```
 
 Last, start the server.

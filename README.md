@@ -552,11 +552,11 @@ Paramater `:id` is `training's id`
     "questions": [
       {
         "id": 3,
-        "text": "Siapa nama penemu bintang di langit?"
+        "text": "Soal ke-1"
       },
       {
         "id": 4,
-        "text": "Siapa penemu lampu pada abab 19"
+        "text": "Soal ke-2"
       }
     ]
   }
